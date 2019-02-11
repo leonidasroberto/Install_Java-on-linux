@@ -1,0 +1,48 @@
+#!/bin/bash
+clear
+cat ./banner
+echo "------------------------------------By: Leonidas Roberto -----------------------------------"
+
+very=$(which java ; echo "$?")
+
+if [ very == 0 ]
+then
+echo -e "\n\033[01;32m         [OK] Java instalado na máquina!\033[m"
+else
+echo -e "\n\033[01;31m         [!] Java não está instalado!\033[m"
+fi
+
+case "$1" in
+java8)
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-set-default
+;;
+java7)
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+sudo apt-get install oracle-java7-set-default
+;;
+java6)
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java6-installer
+sudo apt-get install oracle-java6-set-default
+;;
+javaremove)
+sudo apt-get install ppa-purge -y
+sudo ppa-purge ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get autoremove
+;;
+*)
+echo -e "\033[01;33m"
+echo -e "          ----------------------------------------- "
+echo -e "         | Para instalar java: java8; java7; java6 |"
+echo -e "         | Para desinstalar: javaremove            |"
+echo -e "          ----------------------------------------- "
+echo -e "\033[m"
+;;
+esac
